@@ -12,4 +12,5 @@ app.set('view engine', 'ejs')
 
 app.use('/', router)
 
-app.listen(4000)
+// exportiert app.js damit andere files darauf zugreifen können
+module.exports = app

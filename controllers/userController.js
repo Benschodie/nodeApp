@@ -5,6 +5,10 @@ exports.login = (req, res) => {
     // Promise nutzen mit then:
     user.login()
     .then(function(result) {
+        req.session.user = {
+            favColor: "blue",
+            username: user.data.username,
+        }
         res.send(result)
     })
     .catch(function(err) {
@@ -27,5 +31,9 @@ exports.register = (req, res) => {
 }
 
 exports.home = (req, res) => {
-    res.render('home-guest')
+    if (req.session.user) {
+        res.send('hallooooo')
+    } else {
+        res.render('home-guest')
+    }
 }

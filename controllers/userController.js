@@ -5,19 +5,24 @@ exports.login = (req, res) => {
     // Promise nutzen mit then:
     user.login()
     .then(function(result) {
-        req.session.user = {
-            favColor: "blue",
-            username: user.data.username,
-        }
-        res.send(result)
+        req.session.user = { favColor: "blue", username: user.data.username }
+        req.session.save(function () {
+            res.redirect('/')
+        })
     })
     .catch(function(err) {
         res.send(err)
     })
 }
 
-exports.logout = () => {
-
+exports.logout = (req, res) => {
+    // wird mit session abgeglichen, wenn session da wird sie zerstört 
+    // promise zum erstellungszeitpunkt der app nicht unterstützt, daher callback
+    req.session.destroy(function() {
+        // Callback weil destroy function muss durchgelaufen sein vor redirect
+        res.redirect('/')
+    })
+    
 }
 
 exports.register = (req, res) => {

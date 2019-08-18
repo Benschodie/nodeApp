@@ -3,7 +3,7 @@ dotenv.config()
 const mongodb = require('mongodb')
 
 mongodb.connect(process.env.CONNECTIONSTRING, { useNewUrlParser: true, useUnifiedTopology: true}, function(err, client) {
-    module.exports = client.db()
+    module.exports = client
     // app listen hier damit sichergestellt ist, dass eine verbindung zur datanbank besteht.
     
     // app file wird zugegriffen, siehe dazu export in app file ganz unten. 

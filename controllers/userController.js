@@ -5,7 +5,7 @@ exports.login = (req, res) => {
     // Promise nutzen mit then:
     user.login()
     .then(function(result) {
-        req.session.user = { favColor: "blue", username: user.data.username }
+        req.session.user = { avatar: user.avatar, username: user.data.username }
         req.session.save(function () {
             res.redirect('/')
         })
@@ -32,7 +32,7 @@ exports.logout = (req, res) => {
 exports.register = (req, res) => {
     let user = new User(req.body)
     user.register().then(() => {
-        req.session.user = {username: user.data.username}
+        req.session.user = {username: user.data.username, avatar: user.avatar}
         req.session.save(function () {
             res.redirect('/')
         })
@@ -51,7 +51,7 @@ exports.register = (req, res) => {
 exports.home = (req, res) => {
     if (req.session.user) {
         // struktur ist in der mongo db session
-        res.render('home-dashboard', {username: req.session.user.username})
+        res.render('home-dashboard', {username: req.session.user.username, avatar: req.session.user.avatar})
     } else {
         res.render('home-guest', {errors: req.flash('errors'), regErrors: req.flash('regErrors')})
     }

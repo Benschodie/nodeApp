@@ -10,8 +10,12 @@ exports.login = (req, res) => {
             res.redirect('/')
         })
     })
-    .catch(function(err) {
-        res.send(err)
+    .catch(function (err) {
+        req.flash('errors', err)
+        // check session object
+        req.session.save(function () {
+            res.redirect('/')
+        })
     })
 }
 
@@ -40,6 +44,6 @@ exports.home = (req, res) => {
         // struktur ist in der mongo db session
         res.render('home-dashboard', {username: req.session.user.username})
     } else {
-        res.render('home-guest')
+        res.render('home-guest', {errors: req.flash('errors')})
     }
 }

@@ -1,5 +1,16 @@
 const User = require('../models/User')
 
+exports.mustBeLoggedIn = function(req, res, next) {
+    if (req.session.user) {
+        next()
+    } else {
+        req.flash('errors', 'Du musst eingeloggt, sein um das machen zu können')
+        req.session.save(function() {
+            res.redirect('/')
+        })
+    }
+}
+
 exports.login = (req, res) => {
     let user = new User(req.body)
     // Promise nutzen mit then:

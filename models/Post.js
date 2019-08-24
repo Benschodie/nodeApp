@@ -9,7 +9,6 @@ const ObjectID = require('mongodb').ObjectID
  * @param {req.session.user._id} userid aus dem session object
  */
 let Post = function(data, userid) {
-    console.log(data)
     this.data = data
     this.errors = []
     this.userid = userid
@@ -48,6 +47,25 @@ Post.prototype.create = function () {
             })
         } else {
             reject(this.errors)
+        }
+    })
+}
+
+Post.findSingleById = function(id) {
+    return new Promise(async function(resolve, reject) {
+        if (typeof(id) != "string" || !ObjectID.isValid(id)) {
+            reject()
+            return
+        }
+        /**
+         * die function in post wartet durch await so lange bis sie fertig ist
+         * heißt erst danach geht es mit dem if statement weiter.
+         */
+        let post = await postsCollection.findOne({_id: new ObjectID(id)})
+        if (post) {
+            resolve(post)
+        } else {
+            reject()
         }
     })
 }

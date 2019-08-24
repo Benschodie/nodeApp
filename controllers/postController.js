@@ -22,3 +22,20 @@ exports.create = function(req, res) {
         res.send(errors)
     })
 }
+
+/**
+ * @async
+ */
+exports.viewSingle = async function (req, res) {
+    try {
+        /**
+         * post speichert die methode findSingleById aus Post.js 
+         * hint: res.render parameter single-post-screen ist das template, post die daten die findSingleById returnt!
+         * mega nice 🥰
+         */
+        let post =  await Post.findSingleById(req.params.id)
+        res.render('single-post-screen', {post: post})
+    } catch {
+        res.send('404')
+    }
+}

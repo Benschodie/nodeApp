@@ -5,8 +5,8 @@ const ObjectID = require('mongodb').ObjectID
 
 /**
  * 
- * @param {*} data 
- * @param {*} userid 
+ * @param {req.body} data von post erstellen
+ * @param {req.session.user._id} userid aus dem session object
  */
 let Post = function(data, userid) {
     console.log(data)

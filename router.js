@@ -10,8 +10,11 @@ router.post('/register', userController.register)
 router.post('/login', userController.login)
 router.post('/logout', userController.logout)
 
-// post related routes
-// user geht auf url create post und will (get) fragt an daher get
+/**
+ * unterschied von /create-post als get und post
+ * hier ruft user /create-post auf und bekommt daher als get die create-post seite -> 
+ * wird verarbeitet durch postController.viewCreateScreen
+ */
 router.get('/create-post', userController.mustBeLoggedIn, postController.viewCreateScreen)
 
 /**

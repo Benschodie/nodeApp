@@ -14,7 +14,10 @@ router.post('/logout', userController.logout)
 // user geht auf url create post und will (get) fragt an daher get
 router.get('/create-post', userController.mustBeLoggedIn, postController.viewCreateScreen)
 
-// user nimmt post daten entgegen - neuer beitrag soll erstellen werden daher router.post
+/**
+ * router nimmt post entgegen und schickt die daten nach postController
+ * durch aufruf von postController.create function
+ */
 router.post('/create-post', userController.mustBeLoggedIn, postController.create)
 
 module.exports = router

@@ -22,5 +22,8 @@
     "mongodb": "^3.3.0",
     "nodemon": "^1.19.1",
     "validator": "^11.0.0"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.6.3"
   }
 }
